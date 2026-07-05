@@ -1,0 +1,20 @@
+# Streamlit secrets - never commit these
+.streamlit/secrets.toml
+
+# Firebase service account key (if you keep the downloaded JSON in the project folder)
+*firebase*adminsdk*.json
+serviceAccountKey.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
