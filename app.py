@@ -515,4 +515,4 @@ for idx, item in enumerate(st.session_state.tasks):
 # ----------------------------------------------------------------------------
 # FOOTER
 # ----------------------------------------------------------------------------
-st.markdown('<div class="footer-text">Made with 💖 for Srija</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer-text">Made with 😎 for Srija</div>', unsafe_allow_html=True)
