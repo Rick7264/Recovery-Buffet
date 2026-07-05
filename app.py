@@ -45,6 +45,16 @@ QUOTES = [
     "Rest is productive.",
     "You deserve kindness.",
     "Tiny progress is still progress.",
+    "Slow days are still good days.",
+    "You don't have to earn rest.",
+    "Softness is not weakness.",
+    "Your pace is the right pace.",
+    "Small comforts matter too.",
+    "It's okay to just be okay today.",
+    "You're allowed to take up space while healing.",
+    "Gentle days build strong foundations.",
+    "Show up for yourself, even quietly.",
+    "You're doing better than you think.",
 ]
 
 # Tag -> pastel color mapping, cycled for any custom tags too
@@ -190,22 +200,26 @@ st.markdown(
         margin-bottom: 0.2rem;
     }
 
-    /* Card styling */
-    .task-card {
-        background: #FFFFFF;
+    /* Card styling — targets the real container divs created by
+       st.container(key="task_card_active_N" / "task_card_done_N"),
+       so the box genuinely encloses the checkbox/text/delete row. */
+    div[class*="st-key-task_card_active_"],
+    div[class*="st-key-task_card_done_"] {
+        background: #FFF9FB;
         border-radius: 18px;
         padding: 14px 18px;
         margin-bottom: 12px;
         box-shadow: 0 4px 14px rgba(236, 64, 122, 0.08);
         transition: all 0.25s ease-in-out;
-        border: 1px solid #FCE4EC;
+        border: 1.5px solid #FBDCE7;
     }
-    .task-card:hover {
+    div[class*="st-key-task_card_active_"]:hover,
+    div[class*="st-key-task_card_done_"]:hover {
         box-shadow: 0 8px 22px rgba(236, 64, 122, 0.18);
         transform: translateY(-2px);
     }
 
-    .task-card-done {
+    div[class*="st-key-task_card_done_"] {
         background: #FFF5F7;
         opacity: 0.7;
     }
@@ -337,6 +351,9 @@ st.markdown(
 
     /* Small-screen specific tweaks */
     @media (max-width: 480px) {
+        .block-container {
+            padding-top: 3.2rem;
+        }
         .buffet-title {
             font-size: 1.9rem;
         }
@@ -346,9 +363,9 @@ st.markdown(
         .block-container {
             padding-left: 0.8rem;
             padding-right: 0.8rem;
-            padding-top: 1.2rem;
         }
-        .task-card {
+        div[class*="st-key-task_card_active_"],
+        div[class*="st-key-task_card_done_"] {
             padding: 10px 12px;
         }
         .task-name {
@@ -457,16 +474,15 @@ if not st.session_state.tasks:
     st.info("Your buffet is empty right now. Add a gentle little task above. 🌸")
 
 for idx, item in enumerate(st.session_state.tasks):
-    card_class = "task-card task-card-done" if item["done"] else "task-card"
     name_class = "task-name task-name-done" if item["done"] else "task-name"
+    container_key = f"task_card_done_{idx}" if item["done"] else f"task_card_active_{idx}"
 
     tags_html = "".join(
         f'<span class="tag-pill" style="background:{color_for_tag(tag)};">{tag}</span>'
         for tag in item["tags"]
     )
 
-    with st.container():
-        st.markdown(f'<div class="{card_class}">', unsafe_allow_html=True)
+    with st.container(key=container_key):
         col_check, col_text, col_delete = st.columns([0.7, 5, 1])
 
         with col_check:
@@ -494,8 +510,6 @@ for idx, item in enumerate(st.session_state.tasks):
                 save_tasks_to_firestore()
                 st.rerun()
             st.markdown("</div>", unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ----------------------------------------------------------------------------
