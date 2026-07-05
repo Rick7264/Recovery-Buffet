@@ -390,7 +390,7 @@ st.markdown(
 # ----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("### 🌸 About")
-    st.write("This Recovery Buffet is a gentle reminder that healing isn't a race.")
+    st.write("This Recovery Buffet is a reminder that ekbar recover hoye jao then ettto kichu korte parbe.")
 
     st.markdown("### 💭 Quote of the Day")
     st.markdown(
@@ -404,7 +404,7 @@ with st.sidebar:
 # ----------------------------------------------------------------------------
 st.markdown('<div class="buffet-title">🌸 Srija\'s Recovery Buffet</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="buffet-subtitle">Little victories count. Take your time, heal at your pace. 💖</div>',
+    '<div class="buffet-subtitle">Little victories count. Recover, then eat mon bhore. 💖</div>',
     unsafe_allow_html=True,
 )
 
