@@ -45,16 +45,6 @@ QUOTES = [
     "Rest is productive.",
     "You deserve kindness.",
     "Tiny progress is still progress.",
-    "Slow days are still good days.",
-    "You don't have to earn rest.",
-    "Softness is not weakness.",
-    "Your pace is the right pace.",
-    "Small comforts matter too.",
-    "It's okay to just be okay today.",
-    "You're allowed to take up space while healing.",
-    "Gentle days build strong foundations.",
-    "Show up for yourself, even quietly.",
-    "You're doing better than you think.",
 ]
 
 # Tag -> pastel color mapping, cycled for any custom tags too
@@ -303,6 +293,75 @@ st.markdown(
         margin-top: 2.5rem;
         font-size: 0.95rem;
     }
+
+    /* ------------------------------------------------------------------ */
+    /* MOBILE RESPONSIVENESS                                              */
+    /* ------------------------------------------------------------------ */
+
+    /* Force the checkbox / text / delete-button row inside each task card
+       to stay horizontal instead of stacking on narrow screens. Streamlit
+       wraps each st.columns() row in [data-testid="stHorizontalBlock"]. */
+    div[data-testid="stHorizontalBlock"] {
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 0.4rem;
+    }
+
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+        width: auto !important;
+        min-width: 0 !important;
+        flex: initial !important;
+    }
+
+    /* Give the checkbox column just enough room */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(1) {
+        flex: 0 0 auto !important;
+    }
+
+    /* Let the text column take up the remaining space and truncate gracefully */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(2) {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        overflow-wrap: break-word;
+    }
+
+    /* Keep the delete button compact */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:nth-child(3) {
+        flex: 0 0 auto !important;
+    }
+
+    .delete-btn button {
+        padding: 0.25rem 0.6rem !important;
+        min-width: 2.2rem !important;
+    }
+
+    /* Small-screen specific tweaks */
+    @media (max-width: 480px) {
+        .buffet-title {
+            font-size: 1.9rem;
+        }
+        .buffet-subtitle {
+            font-size: 0.9rem;
+        }
+        .block-container {
+            padding-left: 0.8rem;
+            padding-right: 0.8rem;
+            padding-top: 1.2rem;
+        }
+        .task-card {
+            padding: 10px 12px;
+        }
+        .task-name {
+            font-size: 0.95rem;
+        }
+        .tag-pill {
+            font-size: 0.65rem;
+            padding: 2px 9px;
+        }
+        div.stButton > button {
+            font-size: 0.85rem;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -314,7 +373,7 @@ st.markdown(
 # ----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("### 🌸 About")
-    st.write("This Recovery Buffet is a reminder that ekbar recover hoye jao then ettto kichu korte parbe.")
+    st.write("This Recovery Buffet is a gentle reminder that healing isn't a race.")
 
     st.markdown("### 💭 Quote of the Day")
     st.markdown(
@@ -328,7 +387,7 @@ with st.sidebar:
 # ----------------------------------------------------------------------------
 st.markdown('<div class="buffet-title">🌸 Srija\'s Recovery Buffet</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="buffet-subtitle">Little victories count. Recover, then eat mon bhore. 💖</div>',
+    '<div class="buffet-subtitle">Little victories count. Take your time, heal at your pace. 💖</div>',
     unsafe_allow_html=True,
 )
 
@@ -408,7 +467,7 @@ for idx, item in enumerate(st.session_state.tasks):
 
     with st.container():
         st.markdown(f'<div class="{card_class}">', unsafe_allow_html=True)
-        col_check, col_text, col_delete = st.columns([0.6, 5, 0.8])
+        col_check, col_text, col_delete = st.columns([0.7, 5, 1])
 
         with col_check:
             checked = st.checkbox(
@@ -442,4 +501,4 @@ for idx, item in enumerate(st.session_state.tasks):
 # ----------------------------------------------------------------------------
 # FOOTER
 # ----------------------------------------------------------------------------
-st.markdown('<div class="footer-text">Made with 😎 for Srija</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer-text">Made with 💖 for Srija</div>', unsafe_allow_html=True)
